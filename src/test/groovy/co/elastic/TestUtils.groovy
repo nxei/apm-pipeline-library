@@ -24,7 +24,7 @@ public class TestUtils {
     // filter invlaid entries - with name empty or containing only spaces
     list.findAll{ it&&it=~/^\s*[^=\s]+\s*=?/ }.forEach{
       List fields = it.split("=");
-      def name = fields.pop();
+      def name = fields.remove(0);
       def value = fields.join("="); // add back = chars deleted by split
       savedVars.add([name, binding.hasVariable(name) ? binding.getVariable(name) : null])
       binding.setVariable(name, value.size()> 0 ? value : null)
