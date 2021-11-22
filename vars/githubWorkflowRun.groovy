@@ -94,8 +94,12 @@ def checkTextForLookupId(def text, def lookupId) {
 def getWorkflowRun(Map args = [:]) {
     if (!args.runId) error('getWorkflowRun: runId parameter is required.')
     def repo = args.get("repo", "${env.ORG_NAME}/${env.REPO_NAME}")
-    return toJSON(gh(ghDefaultArgs(args) + [forceInstallation: true,
-        command: "api repos/${repo}/actions/runs/${args.runId}"]))
+    def result = [:]
+    withEnv(["ORG_NAME=", "REPO_NAME="]) {
+        result = toJSON(gh(ghDefaultArgs(args) + [forceInstallation: true,
+            command: "api repos/${repo}/actions/runs/${args.runId}"]))
+    }
+    return result
 }
 
 def ghDefaultArgs(Map args = [:]) {

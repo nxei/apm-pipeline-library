@@ -257,6 +257,9 @@ View this run on GitHub: https://github.com/owner/repo/actions/runs/1441316856
   void test_getWorkflowRun() throws Exception {
     def result = script.getWorkflowRun(runId: 1441316856, repo: "owner/repo")
     def expected = [id: 1441316856, status: "completed"]
+    
+    println "result: ${result}"
+    
     assertTrue(expected.id == result.id && expected.status == result.status)
   }
 }
